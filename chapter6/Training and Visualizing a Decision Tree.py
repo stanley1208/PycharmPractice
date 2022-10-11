@@ -23,7 +23,7 @@ os.makedirs(IMAGES_PATH, exist_ok=True)
 iris=load_iris()
 X=iris.data[:,2:] # petal length and width
 y=iris.target
-print(X)
+# print(X)
 tree_clf=DecisionTreeClassifier(max_depth=2,random_state=42)
 tree_clf.fit(X,y)
 
@@ -38,7 +38,7 @@ export_graphviz(
 
 Source.from_file(os.path.join(IMAGES_PATH,"iris_tree.dot"))
 
-def plot_decision_boundary(clf,X,y,axes=[0,7.5,0,3],iris=True,legend=False,plot_training=True):
+def plot_decision_boundary(clf,X,y,axes=[0,7.5,0,3],iris=True,legend=True,plot_training=True):
     x1s=np.linspace(axes[0],axes[1],100)
     x2s=np.linspace(axes[2],axes[3],100)
     x1,x2=np.meshgrid(x1s,x2s)
@@ -73,3 +73,7 @@ plt.text(1.40,1.0,"Depth=0",fontsize=15)
 plt.text(3.2,1.80,"Depth=1",fontsize=13)
 plt.text(4.05,0.5,"Depth=2",fontsize=11)
 plt.show()
+
+
+print(tree_clf.predict_proba([[5,1.5]]))
+print(tree_clf.predict([[5,1.5]]))
