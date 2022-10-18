@@ -77,3 +77,17 @@ plt.show()
 
 print(tree_clf.predict_proba([[5,1.5]]))
 print(tree_clf.predict([[5,1.5]]))
+
+# Regularization Hyperparameters
+tree_clf_tweaked=DecisionTreeClassifier(max_depth=2,random_state=40)
+tree_clf_tweaked.fit(X,y)
+
+plt.figure(figsize=(10,6))
+plot_decision_boundary(tree_clf_tweaked,X,y,legend=False)
+plt.plot([0,7.5],[0.8,0.8],"k-",linewidth=2)
+plt.plot([0,7.5],[1.75,1.75],"k--",linewidth=2)
+plt.text(1.0,0.9,"Depth=0",fontsize=15)
+plt.text(1.0,1.8,"Depth=1",fontsize=13)
+plt.show()
+
+
