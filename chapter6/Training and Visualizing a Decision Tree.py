@@ -7,6 +7,7 @@ from sklearn.tree import export_graphviz
 import os
 import matplotlib as mpl
 from matplotlib.colors import ListedColormap
+from sklearn.datasets import make_moons
 
 # To plot pretty figures
 mpl.rc('axes', labelsize=14)
@@ -60,19 +61,19 @@ def plot_decision_boundary(clf,X,y,axes=[0,7.5,0,3],iris=True,legend=True,plot_t
         plt.xlabel(r"$x_1", fontsize=18)
         plt.ylabel(r"$x_2", fontsize=18,rotation=0)
     if legend:
-        plt.legend(loc="lower right",fontsize=14)
+        plt.legend(loc="best",fontsize=14)
 
 
-plt.figure(figsize=(10,6))
-plot_decision_boundary(tree_clf,X,y)
-plt.plot([2.45,2.45],[0,3],"k-",linewidth=2)
-plt.plot([2.45,7.5],[1.75,1.75],"k--",linewidth=2)
-plt.plot([4.95,4.95],[0,1.75],"k:",linewidth=2)
-plt.plot([4.85,4.85],[1.75,3],"k:",linewidth=2)
-plt.text(1.40,1.0,"Depth=0",fontsize=15)
-plt.text(3.2,1.80,"Depth=1",fontsize=13)
-plt.text(4.05,0.5,"Depth=2",fontsize=11)
-plt.show()
+# plt.figure(figsize=(10,6))
+# plot_decision_boundary(tree_clf,X,y)
+# plt.plot([2.45,2.45],[0,3],"k-",linewidth=2)
+# plt.plot([2.45,7.5],[1.75,1.75],"k--",linewidth=2)
+# plt.plot([4.95,4.95],[0,1.75],"k:",linewidth=2)
+# plt.plot([4.85,4.85],[1.75,3],"k:",linewidth=2)
+# plt.text(1.40,1.0,"Depth=0",fontsize=15)
+# plt.text(3.2,1.80,"Depth=1",fontsize=13)
+# plt.text(4.05,0.5,"Depth=2",fontsize=11)
+# plt.show()
 
 
 print(tree_clf.predict_proba([[5,1.5]]))
@@ -82,12 +83,34 @@ print(tree_clf.predict([[5,1.5]]))
 tree_clf_tweaked=DecisionTreeClassifier(max_depth=2,random_state=40)
 tree_clf_tweaked.fit(X,y)
 
-plt.figure(figsize=(10,6))
-plot_decision_boundary(tree_clf_tweaked,X,y,legend=False)
-plt.plot([0,7.5],[0.8,0.8],"k-",linewidth=2)
-plt.plot([0,7.5],[1.75,1.75],"k--",linewidth=2)
-plt.text(1.0,0.9,"Depth=0",fontsize=15)
-plt.text(1.0,1.8,"Depth=1",fontsize=13)
+# plt.figure(figsize=(10,6))
+# plot_decision_boundary(tree_clf_tweaked,X,y,legend=False)
+# plt.plot([0,7.5],[0.8,0.8],"k-",linewidth=2)
+# plt.plot([0,7.5],[1.75,1.75],"k--",linewidth=2)
+# plt.text(1.0,0.9,"Depth=0",fontsize=15)
+# plt.text(1.0,1.8,"Depth=1",fontsize=13)
+# plt.show()
+
+
+Xm,ym=make_moons(n_samples=100,noise=0.25,random_state=53)
+
+deep_tree_clf1=DecisionTreeClassifier(random_state=42)
+deep_tree_clf2=DecisionTreeClassifier(min_samples_leaf=4,random_state=42)
+deep_tree_clf1.fit(Xm,ym)
+deep_tree_clf2.fit(Xm,ym)
+
+
+fig,axes=plt.subplots(ncols=2,figsize=(10,6),sharey=True)
+plt.sca(axes[0])
+plot_decision_boundary(deep_tree_clf1,Xm,ym,axes=[-1.5,2.4,-1,1.5],iris=False)
+plt.title("No restrictions",fontsize=16)
+plt.sca(axes[1])
+plot_decision_boundary(deep_tree_clf2,Xm,ym,axes=[-1.5,2.4,-1,1.5],iris=False)
+plt.title("min_samples_leaf = {}".format(deep_tree_clf2.min_samples_leaf),fontsize=16)
+plt.ylabel("")
 plt.show()
+
+
+
 
 
