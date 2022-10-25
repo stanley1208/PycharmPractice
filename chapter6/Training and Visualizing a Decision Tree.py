@@ -100,17 +100,44 @@ deep_tree_clf1.fit(Xm,ym)
 deep_tree_clf2.fit(Xm,ym)
 
 
-fig,axes=plt.subplots(ncols=2,figsize=(10,6),sharey=True)
+# fig,axes=plt.subplots(ncols=2,figsize=(10,6),sharey=True)
+# plt.sca(axes[0])
+# plot_decision_boundary(deep_tree_clf1,Xm,ym,axes=[-1.5,2.4,-1,1.5],iris=False)
+# plt.title("No restrictions",fontsize=16)
+# plt.sca(axes[1])
+# plot_decision_boundary(deep_tree_clf2,Xm,ym,axes=[-1.5,2.4,-1,1.5],iris=False)
+# plt.title("min_samples_leaf = {}".format(deep_tree_clf2.min_samples_leaf),fontsize=16)
+# plt.ylabel("")
+# plt.show()
+
+# angle=np.pi/180*20
+# rotation_matrix=np.array([[np.cos(angle),-np.sin(angle)],[np.sin(angle),np.cos(angle)]])
+# Xr=X.dot(rotation_matrix)
+#
+# tree_clf_r=DecisionTreeClassifier(random_state=42)
+# tree_clf_r.fit(Xr,y)
+#
+# plt.figure(figsize=(10,8))
+# plot_decision_boundary(tree_clf_r,Xr,y,axes=[0.5,7.5,-1.0,1],iris=False)
+# plt.show()
+
+np.random.seed(6)
+Xs=np.random.rand(100,2)-0.5
+ys=(Xs[:,0]>0).astype(np.float32)*2
+
+angle=np.pi/4
+rotation_matrix=np.array([[np.cos(angle),-np.sin(angle)],[np.sin(angle),np.cos(angle)]])
+Xsr=Xs.dot(rotation_matrix)
+
+tree_clf_s=DecisionTreeClassifier(random_state=42)
+tree_clf_s.fit(Xs,ys)
+tree_clf_sr=DecisionTreeClassifier(random_state=42)
+tree_clf_sr.fit(Xsr,ys)
+
+fig,axes=plt.subplots(ncols=2,figsize=(10,8),sharey=True)
 plt.sca(axes[0])
-plot_decision_boundary(deep_tree_clf1,Xm,ym,axes=[-1.5,2.4,-1,1.5],iris=False)
-plt.title("No restrictions",fontsize=16)
+plot_decision_boundary(tree_clf_s,Xs,ys,axes=[-0.7,0.7,-0.7,0.7],iris=False)
 plt.sca(axes[1])
-plot_decision_boundary(deep_tree_clf2,Xm,ym,axes=[-1.5,2.4,-1,1.5],iris=False)
-plt.title("min_samples_leaf = {}".format(deep_tree_clf2.min_samples_leaf),fontsize=16)
+plot_decision_boundary(tree_clf_sr,Xsr,ys,axes=[-0.7,0.7,-0.7,0.7],iris=False)
 plt.ylabel("")
 plt.show()
-
-
-
-
-
