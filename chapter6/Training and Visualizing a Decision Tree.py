@@ -121,23 +121,23 @@ deep_tree_clf2.fit(Xm,ym)
 # plot_decision_boundary(tree_clf_r,Xr,y,axes=[0.5,7.5,-1.0,1],iris=False)
 # plt.show()
 
-np.random.seed(6)
-Xs=np.random.rand(100,2)-0.5
-ys=(Xs[:,0]>0).astype(np.float32)*2
-
-angle=np.pi/4
-rotation_matrix=np.array([[np.cos(angle),-np.sin(angle)],[np.sin(angle),np.cos(angle)]])
-Xsr=Xs.dot(rotation_matrix)
-
-tree_clf_s=DecisionTreeClassifier(random_state=42)
-tree_clf_s.fit(Xs,ys)
-tree_clf_sr=DecisionTreeClassifier(random_state=42)
-tree_clf_sr.fit(Xsr,ys)
-
-fig,axes=plt.subplots(ncols=2,figsize=(10,8),sharey=True)
-plt.sca(axes[0])
-plot_decision_boundary(tree_clf_s,Xs,ys,axes=[-0.7,0.7,-0.7,0.7],iris=False)
-plt.sca(axes[1])
-plot_decision_boundary(tree_clf_sr,Xsr,ys,axes=[-0.7,0.7,-0.7,0.7],iris=False)
-plt.ylabel("")
-plt.show()
+# np.random.seed(6)
+# Xs=np.random.rand(100,2)-0.5
+# ys=(Xs[:,0]>0).astype(np.float32)*2
+#
+# angle=np.pi/4
+# rotation_matrix=np.array([[np.cos(angle),-np.sin(angle)],[np.sin(angle),np.cos(angle)]])
+# Xsr=Xs.dot(rotation_matrix)
+#
+# tree_clf_s=DecisionTreeClassifier(random_state=42)
+# tree_clf_s.fit(Xs,ys)
+# tree_clf_sr=DecisionTreeClassifier(random_state=42)
+# tree_clf_sr.fit(Xsr,ys)
+#
+# fig,axes=plt.subplots(ncols=2,figsize=(10,8),sharey=True)
+# plt.sca(axes[0])
+# plot_decision_boundary(tree_clf_s,Xs,ys,axes=[-0.7,0.7,-0.7,0.7],iris=False)
+# plt.sca(axes[1])
+# plot_decision_boundary(tree_clf_sr,Xsr,ys,axes=[-0.7,0.7,-0.7,0.7],iris=False)
+# plt.ylabel("")
+# plt.show()
