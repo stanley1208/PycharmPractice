@@ -6,6 +6,8 @@ from sklearn.ensemble import RandomForestClassifier,VotingClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.svm import SVC
 from sklearn.metrics import accuracy_score
+from sklearn.ensemble import BaggingClassifier
+from sklearn.tree import DecisionTreeClassifier
 
 # heads_proba=0.51
 # coin_tosses=(np.random.rand(10000,10)<heads_proba).astype(np.int32)
@@ -39,6 +41,7 @@ for clf in (log_clf,rnd_clf,svm_clf,voting_clf):
     clf.fit(X_train,y_train)
     y_pred=clf.predict(X_test)
     print(clf.__class__.__name__,accuracy_score(y_test,y_pred))
+
 
 
 
