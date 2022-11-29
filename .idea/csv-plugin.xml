@@ -10,13 +10,6 @@
             </Attribute>
           </value>
         </entry>
-        <entry key="\SpecialExpression\data.xlsx">
-          <value>
-            <Attribute>
-              <option name="separator" value="&#9;" />
-            </Attribute>
-          </value>
-        </entry>
         <entry key="\chapter3\datasets\titanic\test.csv">
           <value>
             <Attribute>
