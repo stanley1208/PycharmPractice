@@ -56,6 +56,17 @@ plt.title("Decision Tree with bagging",fontsize=14)
 plt.ylabel("")
 plt.show()
 
+bag_clf=BaggingClassifier(
+    DecisionTreeClassifier(),n_estimators=500,
+    bootstrap=True,oob_score=True,random_state=40
+)
+
+bag_clf.fit(X_train,y_train)
+print(bag_clf.oob_score_)
+print(bag_clf.oob_decision_function_)
+y_pred=bag_clf.predict(X_test)
+print(accuracy_score(y_test,y_pred))
+
 
 
 
