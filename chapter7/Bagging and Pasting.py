@@ -58,7 +58,8 @@ plt.show()
 
 bag_clf=BaggingClassifier(
     DecisionTreeClassifier(),n_estimators=500,
-    bootstrap=True,oob_score=True,random_state=40
+    bootstrap=True,oob_score=True,random_state=40,
+    max_samples=1.0,bootstrap_features=True,max_features=1.0
 )
 
 bag_clf.fit(X_train,y_train)
@@ -66,6 +67,8 @@ print(bag_clf.oob_score_)
 print(bag_clf.oob_decision_function_)
 y_pred=bag_clf.predict(X_test)
 print(accuracy_score(y_test,y_pred))
+
+
 
 
 
