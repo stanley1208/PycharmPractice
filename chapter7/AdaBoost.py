@@ -1,4 +1,5 @@
 from sklearn.ensemble import AdaBoostClassifier
+from sklearn.svm import SVC
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.datasets import make_moons
 from sklearn.model_selection import train_test_split
@@ -36,3 +37,34 @@ ada_clf.fit(X_train,y_train)
 
 plot_decision_boundary(ada_clf,X,y)
 plt.show()
+
+m=len(X_train)
+
+fix,axes=plt.subplots(ncols=2,figsize=(10,6),sharey=True)
+for subplot,learning_rate in ((0,1),(1,0.5)):
+    sample_weights=np.ones(m)/m
+    plt.sca(axes[subplot])
+    for i in range(5):
+        svm_clf=SVC(kernel="rbf",C=0.2,gamma=0.6,random_state=42)
+        svm_clf.fit(X_train,y_train,sample_weight=sample_weights*m)
+        y_pred=svm_clf.predict(X_train)
+
+        r=sample_weights[y_pred!=y_train].sum()/sample_weights.sum()    # weighted error
+        alpha=learning_rate*np.log((1-r)/r) # weight
+        sample_weights[y_pred!=y_train]*=np.exp(alpha)  # update weight
+        sample_weights/=sample_weights.sum()    # normalization
+
+        plot_decision_boundary(svm_clf,X,y,alpha=0.2)
+        plt.title("learning rate = {}".format(learning_rate),fontsize=16)
+
+    if subplot==0:
+        plt.text(-0.75,-0.95,"1",fontsize=14)
+        plt.text(-1.05, -0.95, "2", fontsize=14)
+        plt.text(1.0, -0.95, "3", fontsize=14)
+        plt.text(-1.45, -0.5, "4", fontsize=14)
+        plt.text(1.36, -0.95, "5", fontsize=14)
+    else:
+        plt.ylabel("")
+
+plt.show()
+
