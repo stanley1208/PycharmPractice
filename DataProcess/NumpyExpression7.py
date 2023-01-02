@@ -20,7 +20,7 @@ arr3=np.random.randn(4,4)
 # arr3.sort(1)
 # print(arr3)
 print(arr3)
-arr3.sort()
+arr3.sort(1)
 print(arr3)
 
 
