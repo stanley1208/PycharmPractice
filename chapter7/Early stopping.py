@@ -1,8 +1,6 @@
 import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error
-from sklearn.datasets import load_iris
-from sklearn.datasets import make_moons
 from sklearn.ensemble import GradientBoostingRegressor
 import matplotlib.pyplot as plt
 
@@ -30,6 +28,31 @@ best_estimators=np.argmin(errors)+1
 
 gbrt_best=GradientBoostingRegressor(max_depth=2,n_estimators=best_estimators,random_state=42)
 gbrt_best.fit(X_train,y_train)
+
+
+min_error=np.min(errors)
+
+
+plt.figure(figsize=(10,8))
+
+plt.subplot(121)
+plt.plot(np.arange(1,len(errors)+1),errors,"b.-")
+plt.plot([best_estimators,best_estimators],[0,min_error],"k--")
+plt.plot([0,120],[min_error,min_error],"k--")
+plt.plot(best_estimators,min_error,"ko")
+plt.text(best_estimators,min_error*1.2,"Minimum",ha="center",fontsize=16)
+plt.axis([0,120,0,0.01])
+plt.xlabel("Number of trees")
+plt.ylabel("Error",fontsize=16,rotation=0)
+plt.title("validation error",fontsize=16)
+
+plt.subplot(122)
+plot_predictions([gbrt_best],X,y,axes=[-0.5,0.5,-0.1,0.8])
+plt.title("Best model (%d trees)"%best_estimators,fontsize=16)
+plt.xlabel("$x_1$",fontsize=16)
+plt.ylabel("$y$",fontsize=16,rotation=0)
+
+plt.show()
 
 
 
