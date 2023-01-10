@@ -1,0 +1,7 @@
+The/DT
+new/JJ
+ad/NN
+plan/NN
+from/IN1
+Newsweek/NNP
+,/,
