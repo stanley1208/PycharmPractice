@@ -3,6 +3,8 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error
 from sklearn.ensemble import GradientBoostingRegressor
 import matplotlib.pyplot as plt
+from datetime import datetime
+
 
 def plot_predictions(regressors,X,y,axes,label=None,style="r-",data_style="b.",data_label=None):
     x1=np.linspace(axes[0],axes[1],500)
@@ -53,6 +55,58 @@ plt.xlabel("$x_1$",fontsize=16)
 plt.ylabel("$y$",fontsize=16,rotation=0)
 
 plt.show()
+
+
+gbrt1=GradientBoostingRegressor(max_depth=2,warm_start=True,random_state=42)
+
+min_val_error=float("inf")
+error_going_up=0
+
+for n_estimators in range(1,120):
+    gbrt1.n_estimators=n_estimators
+    gbrt1.fit(X_train,y_train)
+    y_pred=gbrt1.predict(X_val)
+    val_error=mean_squared_error(y_val,y_pred)
+    if val_error<min_val_error:
+        min_val_error=val_error
+        error_going_up=0
+    else:
+        error_going_up=1
+        if error_going_up==5:
+            break
+
+
+print(gbrt1.n_estimators)
+print("Minimum validation MSE:",val_error,min_val_error)
+
+
+
+### important ###
+start=datetime.now()
+try:
+    import xgboost
+except ImportError as e:
+    print("Error: the xgboost library is not installed.")
+    xgboost=None
+
+if xgboost is not None:
+    xgb_reg=xgboost.XGBRegressor(random_state=42)
+    xgb_reg.fit(X_train,y_train)
+    y_pred=xgb_reg.predict(X_val)
+    val_error = mean_squared_error(y_val, y_pred)
+    print("Validation MSE:",val_error)
+
+if xgboost is not None:
+    xgb_reg.fit(X_train,y_train,eval_set=[(X_val,y_val)],early_stopping_rounds=2)
+    y_pred=xgb_reg.predict(X_val)
+    val_error = mean_squared_error(y_val, y_pred)
+    print("Validation MSE:",val_error)
+
+
+
+print(datetime.now()-start)
+
+
 
 
 
