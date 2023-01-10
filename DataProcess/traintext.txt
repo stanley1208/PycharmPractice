@@ -1,7 +1,9 @@
-The/DT
-new/JJ
-ad/NN
-plan/NN
-from/IN1
-Newsweek/NNP
+My/DT
+name/JJ
+is/NN
+Stanley/NN
+who/IN1
+are/NNP
+you/PPP
+again/ty
 ,/,
